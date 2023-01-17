@@ -49,54 +49,75 @@ function TodoContainer() {
     }
     //--------Cancel update---------------------//
     const cancelUpdate = () => {
-
+        setUpdateData('');
     }
 
     //--------Change task for update --------//
     const changeTask = (e) => {
-
+        let newEntry = {
+            id: updateData.id,
+            title:e.target.value,
+            completed: updateData.completed ? true : false
+        }
+        setUpdateData(newEntry);
     }
 
     //---------Update Task -----------------//
-    const UpdateTask = () => {
-         
+    const updateTask = () => {
+        let filterRecord = [...toDo].filter(task => task.id !== updateData.id)
+        let UpdatedObject = [updateData, ...filterRecord];
+        setToDo(UpdatedObject);
+        setUpdateData('')
     }
+
     return (
         <div className="container App">
             <h2 style={{color:'red'}}> To Do List App</h2>
             <br /><br />
-               {/* updating Task  */}
-            <div className="row mb-2">
-                <div className="col">
-                    <input type="text"
-                    className='form-control form-control-sm'
-                    />
-                </div>
-                <div className="col-auto">
-                    <button className="btn btn-sm btn-success mr-20">
-                        Update
-                    </button>
-                    <button className="btn btn-sm btn-warning">
-                        Cancel
-                    </button>
-                </div>
-               </div>
 
-            {/* for Adding a New Task  */}
-            <div className="row mb-2">
-                <div className="col">
-                    <input
-                        value={newTask}
-                        onChange={(e) => setNewTask(e.target.value)}
-                        className='form-control form-control-lg'
-                        type="text" />
+            {/* updating Task  && for Adding a New Task  */}
+            {
+                updateData && updateData ? (
+                    < div className="row mb-2">
+              <div className="col">
+                <input type="text"
+                    value={updateData && updateData.title}
+                    onChange={changeTask}
+                    className='form-control form-control-sm'
+                />
+              </div>
+              <div className="col-auto">
+                <button
+                    onClick={updateTask}
+                    className="btn btn-sm btn-success mr-20">
+                    Update
+                </button>
+                 <button className="btn btn-sm btn-warning"
+                    onClick={cancelUpdate}
+                     >
+                    Cancel
+                </button>
+              </div>
+           </div>
+                ) : (
+                 <div className="row mb-2">
+                    <div className="col">
+                           <input
+                             value={newTask}
+                             onChange={(e) => setNewTask(e.target.value)}
+                             className='form-control form-control-lg'
+                            type="text" />
+                            </div>
+                        <div className="col-auto">
+                             <button
+                              onClick={addTask}
+                              className='btn btn-lg btn-success'>Add Task</button>
+                         </div>
                 </div>
-                <div className="col-auto">
-                    <button
-                        onClick={addTask}
-                        className='btn btn-lg btn-success'>Add Task</button>
-                </div>
-            </div>
+            )
+           }
+
+       
 
            {/* Display ToDos  */}
             {
@@ -117,7 +138,13 @@ function TodoContainer() {
                                     </span>
                                     {
                                         task.completed ? null : (
-                                        <span title='Edit'>
+                                            <span title='Edit'
+                                                onClick={() => setUpdateData({
+                                                    id: task.id,
+                                                    title: task.title,
+                                                    completed: task.completed ? true : false
+                                                })}
+                                            >
                                         <FontAwesomeIcon icon={faPen} />
                                             </span>)
                                     }
