@@ -1,12 +1,13 @@
+import React from 'react'
+import './App.css'
+import TodoContainer from './Components/todoContainer/TodoContainer'
 
-import './App.css';
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-          <p>Todo List</p>
+      <div>
+          <TodoContainer/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,40 @@
+
+.App{
+    text-align: center;
+    color: #fff;
+}
+
+.taskBg {
+     background-color: #555;
+     border-radius: 6px;
+     margin-bottom: 10px;
+     text-align: left;
+     font-size: 22px;
+     position: relative;
+     padding: 10px 140px 10px 15px;
+}
+
+.taskBg  div {
+    display: flex;
+    align-items: center;
+}
+
+.taskNumber{
+    color: #999;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    text-align: center;
+    font-size: 14px;
+    margin-right: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.taskBg .done .taskText{
+      text-decoration: line-through;
+      opacity: 0.4;
+      flex: 1;
+}
