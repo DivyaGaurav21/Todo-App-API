@@ -1,6 +1,8 @@
 import React from 'react'
 
+// -----------UpdateForm Component------------// 
 const UpdateForm = (props) => {
+    // ------props object we got updateData , cancelUpdate , updateTask ---------//
   return (
       <>
           {/* Update Task  */}
@@ -13,11 +15,13 @@ const UpdateForm = (props) => {
                   />
               </div>
               <div className="col-auto">
+                  {/* update btn  */}
                   <button
                       onClick={props.updateTask}
                       className="btn btn-sm btn-success mr-20">
                       Update
                   </button>
+                  {/* cancel btn  */}
                   <button className="btn btn-sm btn-warning"
                       onClick={props.cancelUpdate}
                   >
@@ -29,4 +33,6 @@ const UpdateForm = (props) => {
   )
 }
 
+
+// finally exprts this module 
 export default UpdateForm

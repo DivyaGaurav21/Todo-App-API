@@ -1,9 +1,10 @@
-
+/* --------------Some Custom Css ---------------- */
 .App{
     text-align: center;
     color: #fff;
 }
 
+/* ------------class taskBg Css ------------ */
 .taskBg {
      background-color: #555;
      border-radius: 6px;
@@ -19,6 +20,7 @@
     align-items: center;
 }
 
+/* -------------task number---------------- */
 .taskNumber{
     color: #999;
     border: 1px solid #fff;
@@ -41,6 +43,7 @@
       opacity: 0.4;
 }
 
+/* -----------edit delete marked icons----------- */
 .taskBg .iconsWrap{
     position: absolute;
     top: 50%;
@@ -60,11 +63,20 @@
 .taskBg .iconsWrap span:hover {
     color: yellow;
 }
-
+/* ---------my Custom Length------------- */
 .mr-20{
     margin-right: 10px;
 }
 
+/* ----------todo Heading-------------- */
+#todo-heading{
+    color: #fff;
+   text-align: center;
+   font-size: 20px;
+   margin: 10px 0px;
+}
+
+/* -------------resposiveness of Small Device ----------------- */
 @media screen and (max-width : 500px) {
     .taskBg .iconsWrap span{
         margin: 0px 4px;

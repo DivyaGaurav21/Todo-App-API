@@ -1,3 +1,4 @@
+/* --------hiding scrollbar of app ------------ */
 body::-webkit-scrollbar{
     display: none;
 }
