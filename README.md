@@ -27,3 +27,38 @@ npm start
 
 
 
+folder structure of my project
+my-app
+├── node_modules
+├── package.json
+├── .gitignore
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│ 
+└── src
+    ├── App.css
+    ├── App.js
+    ├── index.js
+    ├── logo.svg
+    └── Component
+            |
+            |____TodoContainer.js
+            |____TodoContainer.css
+            |____toDos
+                  |
+                  |____AddTaskForm.js
+                  |____ToDo.js
+                  |____UpdateForm.js
+                  
+                  
+              What Include ?
+              1__a responsive Interface
+              2__Fake-Json-server is used For Api Call Testing
+              3__CRUD operation over DATA
+                  
+                  
+
+
+
+
