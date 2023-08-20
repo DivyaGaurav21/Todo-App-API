@@ -1,114 +1,89 @@
 import React, { useState } from 'react';
 import './TodoContainer.css'
-
-//----------import AddTaskForm , UpdateForm , ToDo Component --------//
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AddTaskForm from './toDos/AddTaskForm'
 import UpdateForm from './toDos/UpdateForm'
 import ToDo from './toDos/ToDo'
 
-//-------------importting BootStrap Module--------------------//
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-// ------------TodoContainer Component------------------------//
-function TodoContainer(props) {
-
-    //----------- Task Todo List State -------------------//
-    const [toDo, setToDo] = useState(props.jsonTodos);
-    //------------- Temp State ---------------------------//
+function TodoContainer({ fakeTodosArr }) {
+    const [todos, setTodos] = useState(fakeTodosArr);
     const [newTask, setNewTask] = useState('');
     const [updateData, setUpdateData] = useState('');
 
 
-    //------------ Add task -------------------//
-    const addTask = () => {
+    const addTaskHandler = () => {
+        // if we use form then we have to give e.preventDefault()
         if (newTask) {
             let newEntry = {
                 id: Date.now(),
                 title: newTask,
-                completed:false
+                completed: false
             }
-            setToDo([newEntry, ...toDo])
+            setTodos([newEntry, ...todos])
             setNewTask('');
         }
     }
 
-    //--------------Delete Task -----------------//
-    const deleteTask = (id) => {
-        let newTasks = toDo.filter(task => task.id !== id);
-        setToDo(newTasks)
+    const deleteTaskHandler = (id) => {
+        setTodos(todos => todos.filter(todo => todo.id !== id));
     }
 
-    //-------New Task as Done and Complete--------//
-    const markDone = (id) => {
-        let completeTask = toDo.map(task => {
-            if (task.id === id) {
-                return ({ ...task, completed: !task.completed });
-            }
-            return task;
-        })
-        setToDo(completeTask)
-    }
-    //--------Cancel update---------------------//
-    const cancelUpdate = () => {
+    const markDoneHandler = (id) => (
+        setTodos(todos => todos.map(todo =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        ))
+    )
+
+    const cancelUpdateHandler = () => {
         setUpdateData('');
     }
 
-    //--------Change task for update --------//
-    const changeTask = (e) => {
+    const changeTaskHandler = (e) => {
         let newEntry = {
             id: updateData.id,
-            title:e.target.value,
+            title: e.target.value,
             completed: updateData.completed ? true : false
         }
         setUpdateData(newEntry);
     }
 
-    //---------Update Task -----------------//
-    const updateTask = () => {
-        let filterRecord = [...toDo].filter(task => task.id !== updateData.id)
+    const updateTaskHandler = () => {
+        let filterRecord = [...todos].filter(task => task.id !== updateData.id);
         let UpdatedObject = [updateData, ...filterRecord];
-        setToDo(UpdatedObject);
+        setTodos(UpdatedObject);
         setUpdateData('')
     }
 
     return (
         <React.Fragment>
-            {/* heading of ToDo App  */}
             <h2 id='todo-heading'>React ToDo App (fetching API)</h2>
-        <div className="container App">
-
-            {/*Rendering Two Comp updating Task  && for Adding a New Task  */}
-            {
-                updateData && updateData ? (
-                      <UpdateForm
-                          updateData={updateData}
-                          changeTask={changeTask}
-                          updateTask={updateTask}
-                          cancelUpdate={cancelUpdate}
-
-                    />
-                ) : (
+            <div className="container App">
+                {
+                    updateData && updateData ? (
+                        <UpdateForm
+                            updateData={updateData}
+                            OnChangeTask={changeTaskHandler}
+                            onUpdateTask={updateTaskHandler}
+                            onCancelUpdate={cancelUpdateHandler}
+                        />
+                    ) : (
                         <AddTaskForm
                             newTask={newTask}
                             setNewTask={setNewTask}
-                            addTask = {addTask}
+                            onAddTask={addTaskHandler}
                         />
-            )
-            }
-            
-            {/* Display ToDos  */}
-            <ToDo
-                toDo={toDo}
-                markDone={markDone}
-                setUpdateData={setUpdateData}
-                deleteTask = {deleteTask}
-            />
-           
+                    )
+                }
+
+                <ToDo todos={todos}
+                    onMarkDone={markDoneHandler}
+                    onDeleteTask={deleteTaskHandler}
+                    setUpdateData={setUpdateData}
+                />
+
             </div>
         </React.Fragment>
     );
 }
 
-
-//-----------finally Export This File-------------//
 export default TodoContainer;
